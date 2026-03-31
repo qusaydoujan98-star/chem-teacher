@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بوصلة الكيمياء | دليل المعلم التوجيهي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<script src="data.js"></script>
+<style>
+/* ===================== VARIABLES ===================== */
+:root {
+  --bg: #0a0f1e;
+  --bg2: #0f1629;
+  --bg3: #141d35;
+  --card: #1a2540;
+  --card2: #1f2d4a;
+  --border: rgba(99,179,237,0.12);
+  --border2: rgba(99,179,237,0.2);
+  --text: #e2e8f0;
+  --text2: #94a3b8;
+  --text3: #64748b;
+  --accent: #38bdf8;
+  --accent2: #0ea5e9;
+  --gold: #f59e0b;
+  --gold2: #fbbf24;
+  --green: #10b981;
+  --red: #ef4444;
+  --purple: #8b5cf6;
+
+  /* unit colors */
+  --u1: #2563eb;
+  --u2: #0891b2;
+  --u3: #7c3aed;
+  --u4: #dc2626;
+  --u5: #d97706;
+  --u6: #059669;
+  --u7: #be185d;
+}
+
+/* ===================== RESET ===================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Cairo', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ===================== SCROLLBAR ===================== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--accent2); border-radius: 3px; }
+
+/* ===================== LAYOUT ===================== */
+.app { display: flex; min-height: 100vh; }
+
+/* SIDEBAR */
+.sidebar {
+  width: 270px;
+  min-height: 100vh;
+  background: var(--bg2);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+.sidebar-logo {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-logo h1 {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+}
+.sidebar-logo p { font-size: 0.72rem; color: var(--text3); margin-top: 3px; }
+
+.sidebar-nav { padding: 12px 0; flex: 1; }
+.nav-section { margin-bottom: 4px; }
+.nav-section-title {
+  padding: 8px 20px 4px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text3);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 20px;
+  cursor: pointer;
+  border-radius: 0;
+  transition: all 0.2s;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text2);
+  border-right: 3px solid transparent;
+  position: relative;
+}
+.nav-item:hover { background: var(--card); color: var(--text); }
+.nav-item.active {
+  background: rgba(56,189,248,0.08);
+  color: var(--accent);
+  border-right-color: var(--accent);
+}
+.nav-item .nav-icon { font-size: 1rem; width: 20px; text-align: center; flex-shrink: 0; }
+.nav-item .nav-badge {
+  margin-right: auto;
+  background: var(--gold);
+  color: #000;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 10px;
+}
+
+.nav-unit {
+  padding: 7px 20px 7px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 0.78rem;
+  color: var(--text2);
+  transition: all 0.2s;
+}
+.nav-unit:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+.nav-unit.active { color: var(--text); }
+.nav-unit-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.sidebar-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+  font-size: 0.7rem;
+  color: var(--text3);
+}
+
+/* MAIN CONTENT */
+.main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* TOPBAR */
+.topbar {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.topbar-title { font-size: 1.1rem; font-weight: 700; }
+.topbar-sub { font-size: 0.75rem; color: var(--text3); margin-top: 1px; }
+.topbar-actions { display: flex; gap: 10px; align-items: center; }
+
+.btn {
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+.btn-primary { background: var(--accent2); color: #fff; }
+.btn-primary:hover { background: var(--accent); }
+.btn-outline {
+  background: transparent;
+  color: var(--text2);
+  border: 1px solid var(--border2);
+}
+.btn-outline:hover { background: var(--card); color: var(--text); }
+
+/* CONTENT AREA */
+.content { padding: 28px 32px; flex: 1; }
+
+/* ===================== CARDS ===================== */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: var(--border2); }
+
+/* ===================== DASHBOARD ===================== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.stat-icon {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.stat-val { font-size: 1.5rem; font-weight: 800; line-height: 1; }
+.stat-lbl { font-size: 0.72rem; color: var(--text2); margin-top: 3px; }
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+/* HEAT MAP */
+.heat-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 12px;
+}
+.heat-lesson {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.heat-label { font-size: 0.78rem; width: 200px; flex-shrink: 0; color: var(--text2); }
+.heat-bar-wrap { flex: 1; background: rgba(255,255,255,0.05); border-radius: 20px; height: 10px; overflow: hidden; }
+.heat-bar { height: 100%; border-radius: 20px; transition: width 0.8s ease; }
+.heat-count { font-size: 0.72rem; color: var(--text3); width: 50px; text-align: left; }
+
+/* PREDICTIONS */
+.prediction-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.prediction-item:last-child { border-bottom: none; }
+.pred-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.pred-high { background: rgba(16,185,129,0.15); color: var(--green); }
+.pred-very-high { background: rgba(245,158,11,0.15); color: var(--gold); }
+.pred-info { font-size: 0.77rem; }
+.pred-title { font-weight: 600; margin-bottom: 2px; }
+.pred-reason { color: var(--text3); font-size: 0.72rem; }
+
+/* ===================== UNITS VIEW ===================== */
+.units-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+.unit-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.unit-card:hover { transform: translateY(-2px); border-color: var(--border2); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+.unit-header {
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.unit-icon { font-size: 1.6rem; }
+.unit-title-wrap {}
+.unit-title { font-size: 1rem; font-weight: 700; }
+.unit-subtitle { font-size: 0.72rem; color: var(--text3); margin-top: 2px; }
+.unit-lessons-list { padding: 0 20px 16px; }
+.unit-lesson-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.unit-lesson-row:last-child { border-bottom: none; }
+.unit-lesson-row:hover .lesson-link-title { color: var(--accent); }
+.lesson-link-title { font-size: 0.82rem; font-weight: 600; }
+.lesson-meta { display: flex; align-items: center; gap: 8px; }
+.heat-dots { display: flex; gap: 3px; }
+.heat-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--border2);
+}
+.heat-dot.on { background: var(--gold); }
+.lesson-freq { font-size: 0.68rem; color: var(--text3); }
+
+/* ===================== LESSON DETAIL ===================== */
+.lesson-detail-header {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+}
+.lesson-title-main { font-size: 1.4rem; font-weight: 800; margin-bottom: 4px; }
+.lesson-breadcrumb { font-size: 0.75rem; color: var(--text3); margin-bottom: 12px; }
+.lesson-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.tag {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+.tag-pages { background: rgba(99,179,237,0.1); color: var(--accent); }
+.tag-hours { background: rgba(16,185,129,0.1); color: var(--green); }
+.tag-type { background: rgba(139,92,246,0.1); color: var(--purple); }
+
+.lesson-stat-mini {
+  text-align: center;
+  padding: 12px 20px;
+  background: var(--bg3);
+  border-radius: 10px;
+}
+.lesson-stat-num { font-size: 2rem; font-weight: 900; line-height: 1; }
+.lesson-stat-lbl { font-size: 0.68rem; color: var(--text3); margin-top: 4px; }
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.detail-section-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.topic-list { list-style: none; }
+.topic-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 0.82rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.topic-item:last-child { border-bottom: none; }
+.topic-bullet {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.tip-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(56,189,248,0.05);
+  border-right: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 8px;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+.tip-num {
+  font-weight: 700;
+  color: var(--accent);
+  flex-shrink: 0;
+  min-width: 18px;
+}
+
+.mistake-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(239,68,68,0.06);
+  border-right: 3px solid var(--red);
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 8px;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+/* EXAM TYPE BARS */
+.exam-type-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.exam-type-label { font-size: 0.78rem; width: 70px; color: var(--text2); }
+.exam-type-bar-wrap { flex: 1; background: rgba(255,255,255,0.05); border-radius: 20px; height: 12px; }
+.exam-type-bar { height: 100%; border-radius: 20px; }
+.exam-type-count { font-size: 0.72rem; color: var(--text3); width: 40px; text-align: left; }
+
+/* YEARS CHART */
+.years-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 50px;
+  margin-top: 10px;
+}
+.year-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+.year-bar {
+  width: 100%;
+  border-radius: 3px 3px 0 0;
+  min-height: 4px;
+  max-height: 40px;
+}
+.year-label { font-size: 0.55rem; color: var(--text3); transform: rotate(-45deg); }
+
+/* ===================== PLAN VIEW ===================== */
+.plan-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.plan-progress {
+  font-size: 0.8rem;
+  color: var(--text2);
+  background: var(--card);
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+}
+.weeks-grid { display: flex; flex-direction: column; gap: 4px; }
+.week-row {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+.week-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text3);
+  text-align: center;
+  padding: 8px;
+  background: var(--bg3);
+  border-radius: 8px;
+}
+.week-sessions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.session-cell {
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 0.73rem;
+  border: 1px solid;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.session-cell:hover { transform: translateY(-1px); }
+.session-unit { font-size: 0.65rem; opacity: 0.7; margin-bottom: 2px; }
+.session-lesson { font-weight: 600; margin-bottom: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.session-focus { font-size: 0.6rem; opacity: 0.6; }
+.session-done { opacity: 0.4; text-decoration: line-through; }
+
+/* ===================== PAGE TRANSITIONS ===================== */
+.page { display: none; animation: fadeIn 0.25s ease; }
+.page.active { display: block; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ===================== HEAT FLAMES ===================== */
+.flames { display: inline-flex; gap: 1px; }
+.flame { font-size: 0.85rem; opacity: 0.2; }
+.flame.on { opacity: 1; }
+
+/* ===================== EMPTY STATE ===================== */
+.empty { text-align: center; padding: 60px 20px; color: var(--text3); }
+.empty-icon { font-size: 3rem; margin-bottom: 12px; }
+.empty-text { font-size: 0.9rem; }
+
+/* ===================== SEARCH ===================== */
+.search-wrap { position: relative; }
+.search-input {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 14px 8px 36px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.82rem;
+  color: var(--text);
+  width: 220px;
+  transition: border-color 0.2s;
+}
+.search-input:focus { outline: none; border-color: var(--accent2); }
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text3);
+  font-size: 0.9rem;
+}
+
+/* ===================== SECTION HEADER ===================== */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.section-title { font-size: 1.15rem; font-weight: 700; }
+.section-sub { font-size: 0.78rem; color: var(--text3); margin-top: 2px; }
+
+/* ===================== PART BADGE ===================== */
+.part-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0 16px;
+  grid-column: 1/-1;
+}
+.part-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 20px;
+  background: rgba(56,189,248,0.1);
+  color: var(--accent);
+  white-space: nowrap;
+}
+.part-line { flex: 1; height: 1px; background: var(--border); }
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .stats-grid { grid-template-columns: repeat(2,1fr); }
+  .dashboard-grid { grid-template-columns: 1fr; }
+  .units-grid { grid-template-columns: 1fr; }
+  .detail-grid { grid-template-columns: 1fr; }
+  .content { padding: 16px; }
+  .topbar { padding: 12px 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <h1>🧪 بوصلة الكيمياء</h1>
+      <p>دليل المعلم | التوجيهي العلمي ٢٠٢٥</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <div class="nav-item active" onclick="showPage('dashboard')">
+          <span class="nav-icon">📊</span>
+          <span>لوحة التحكم</span>
+        </div>
+        <div class="nav-item" onclick="showPage('plan')">
+          <span class="nav-icon">📅</span>
+          <span>خطة التدريس</span>
+          <span class="nav-badge">4 أشهر</span>
+        </div>
+        <div class="nav-item" onclick="showPage('units')">
+          <span class="nav-icon">📚</span>
+          <span>الوحدات والدروس</span>
+        </div>
+        <div class="nav-item" onclick="showPage('predictions')">
+          <span class="nav-icon">🎯</span>
+          <span>توقعات ٢٠٢٦</span>
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-section-title">الوحدات</div>
+        <div id="units-nav"></div>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      تحليل ١٩٩٧–٢٠٢٥ | لتعديل البيانات: data.js
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div>
+        <div class="topbar-title" id="page-title">لوحة التحكم</div>
+        <div class="topbar-sub" id="page-sub">نظرة عامة على المادة والخطة التدريسية</div>
+      </div>
+      <div class="topbar-actions">
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input class="search-input" type="text" placeholder="بحث عن درس..." oninput="handleSearch(this.value)">
+        </div>
+        <button class="btn btn-outline" onclick="showPage('plan')">📅 خطة التدريس</button>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+      <!-- ========== DASHBOARD PAGE ========== -->
+      <div class="page active" id="page-dashboard">
+        <!-- STATS -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(56,189,248,0.1)">📘</div>
+            <div>
+              <div class="stat-val" style="color:var(--accent)">20</div>
+              <div class="stat-lbl">درس في المنهاج</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(245,158,11,0.1)">🔥</div>
+            <div>
+              <div class="stat-val" style="color:var(--gold)">56</div>
+              <div class="stat-lbl">امتحان محلَّل (1997-2025)</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(16,185,129,0.1)">⏱️</div>
+            <div>
+              <div class="stat-val" style="color:var(--green)">48</div>
+              <div class="stat-lbl">حصة خلال 4 أشهر</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:rgba(139,92,246,0.1)">🎯</div>
+            <div>
+              <div class="stat-val" style="color:var(--purple)">6</div>
+              <div class="stat-lbl">توقعات عالية لـ 2026</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <!-- HEAT MAP -->
+          <div class="card">
+            <div class="detail-section-title">🔥 خريطة حرارة الدروس (تكرار الأسئلة 1997–2025)</div>
+            <div class="heat-grid" id="heat-map"></div>
+          </div>
+
+          <!-- PREDICTIONS -->
+          <div class="card">
+            <div class="detail-section-title">🎯 توقعات ٢٠٢٦ الأقوى</div>
+            <div id="predictions-mini"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== UNITS PAGE ========== -->
+      <div class="page" id="page-units">
+        <div class="section-header">
+          <div>
+            <div class="section-title">الوحدات والدروس</div>
+            <div class="section-sub">اضغط على أي درس لعرض تفاصيله وطريقة شرحه</div>
+          </div>
+        </div>
+        <div class="units-grid" id="units-grid"></div>
+      </div>
+
+      <!-- ========== LESSON DETAIL PAGE ========== -->
+      <div class="page" id="page-lesson">
+        <div id="lesson-content"></div>
+      </div>
+
+      <!-- ========== PLAN PAGE ========== -->
+      <div class="page" id="page-plan">
+        <div class="plan-header">
+          <div>
+            <div class="section-title">خطة التدريس — ٤ أشهر</div>
+            <div class="section-sub">٣ حصص أسبوعياً · ١٦ أسبوع · ٤٨ حصة إجمالاً</div>
+          </div>
+          <div class="plan-progress">الأسبوع الحالي: <strong id="current-week-display">1</strong> من 16</div>
+        </div>
+        <div class="weeks-grid" id="plan-grid"></div>
+      </div>
+
+      <!-- ========== PREDICTIONS PAGE ========== -->
+      <div class="page" id="page-predictions">
+        <div class="section-header">
+          <div>
+            <div class="section-title">🎯 توقعات امتحان ٢٠٢٦</div>
+            <div class="section-sub">بناءً على تحليل أنماط الامتحانات ١٩٩٧–٢٠٢٥</div>
+          </div>
+        </div>
+        <div id="predictions-full"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// =====================================================
+// STATE
+// =====================================================
+let currentPage = 'dashboard';
+let completedSessions = new Set(
+  JSON.parse(localStorage.getItem('completedSessions') || '[]')
+);
+let currentWeek = parseInt(localStorage.getItem('currentWeek') || '1');
+
+// =====================================================
+// NAVIGATION
+// =====================================================
+function showPage(page, data = null) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+  currentPage = page;
+  document.getElementById('page-' + page).classList.add('active');
+
+  const titles = {
+    dashboard: ['لوحة التحكم', 'نظرة عامة على المادة والخطة التدريسية'],
+    units: ['الوحدات والدروس', 'اضغط على أي درس لعرض التفاصيل'],
+    lesson: ['تفاصيل الدرس', 'طريقة الشرح والنقاط الامتحانية'],
+    plan: ['خطة التدريس', '٤ أشهر · ٣ حصص أسبوعياً'],
+    predictions: ['توقعات ٢٠٢٦', 'أقوى الموضوعات المتوقعة في الامتحان']
+  };
+
+  document.getElementById('page-title').textContent = titles[page]?.[0] || '';
+  document.getElementById('page-sub').textContent = titles[page]?.[1] || '';
+
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.getAttribute('onclick')?.includes(`'${page}'`)) n.classList.add('active');
+  });
+
+  if (page === 'lesson' && data) {
+    renderLesson(data);
+  }
+  if (page === 'predictions') {
+    renderPredictionsFull();
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// =====================================================
+// HELPERS
+// =====================================================
+function getLesson(id) {
+  for (const unit of CURRICULUM.units) {
+    for (const lesson of unit.lessons) {
+      if (lesson.id === id) return { lesson, unit };
+    }
+  }
+  return null;
+}
+
+function getAllLessons() {
+  const all = [];
+  CURRICULUM.units.forEach(unit => {
+    unit.lessons.forEach(lesson => {
+      all.push({ lesson, unit });
+    });
+  });
+  return all;
+}
+
+function maxFreq() {
+  return Math.max(...getAllLessons().map(({lesson}) => lesson.examFrequency));
+}
+
+function heatColor(score) {
+  const colors = ['', '#64748b','#3b82f6','#f59e0b','#ef4444','#dc2626'];
+  return colors[Math.min(score, 5)];
+}
+
+function flames(score) {
+  let html = '<span class="flames">';
+  for (let i = 1; i <= 5; i++) {
+    html += `<span class="flame ${i <= score ? 'on' : ''}">🔥</span>`;
+  }
+  return html + '</span>';
+}
+
+function typeLabel(type) {
+  return { conceptual: 'مفاهيمي', calculation: 'حسابي', mixed: 'مختلط' }[type] || type;
+}
+
+// =====================================================
+// SIDEBAR UNITS NAV
+// =====================================================
+function renderSidebarNav() {
+  const container = document.getElementById('units-nav');
+  let html = '';
+  CURRICULUM.units.forEach(unit => {
+    html += `
+      <div class="nav-unit" onclick="showUnit('${unit.id}')">
+        <div class="nav-unit-dot" style="background:${unit.color}"></div>
+        <span>${unit.icon} ${unit.title}</span>
+      </div>`;
+  });
+  container.innerHTML = html;
+}
+
+function showUnit(unitId) {
+  showPage('units');
+  setTimeout(() => {
+    const el = document.getElementById('unit-' + unitId);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 100);
+}
+
+// =====================================================
+// DASHBOARD
+// =====================================================
+function renderHeatMap() {
+  const all = getAllLessons();
+  const max = maxFreq();
+  let html = '';
+
+  all.forEach(({ lesson, unit }) => {
+    const pct = (lesson.examFrequency / max) * 100;
+    html += `
+      <div class="heat-lesson" onclick="showPage('lesson', {lessonId:'${lesson.id}'})" style="cursor:pointer">
+        <div class="heat-label" title="${lesson.title}" style="color:${unit.color};overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${unit.icon} ${lesson.title}</div>
+        <div class="heat-bar-wrap">
+          <div class="heat-bar" style="width:${pct}%;background:${heatColor(lesson.heatScore)}"></div>
+        </div>
+        <div class="heat-count">${lesson.examFrequency} مرة</div>
+      </div>`;
+  });
+
+  document.getElementById('heat-map').innerHTML = html;
+}
+
+function renderPredictionsMini() {
+  const preds = EXAM_STATS.predictions2026.slice(0, 4);
+  let html = '';
+  preds.forEach(p => {
+    const info = getLesson(p.lessonId);
+    if (!info) return;
+    const { lesson, unit } = info;
+    const isVeryHigh = p.confidence.includes('جداً');
+    html += `
+      <div class="prediction-item" onclick="showPage('lesson', {lessonId:'${p.lessonId}'})" style="cursor:pointer">
+        <span class="pred-badge ${isVeryHigh ? 'pred-very-high' : 'pred-high'}">${p.confidence}</span>
+        <div class="pred-info">
+          <div class="pred-title">${unit.icon} ${lesson.title}</div>
+          <div class="pred-reason">${p.reason}</div>
+        </div>
+      </div>`;
+  });
+  document.getElementById('predictions-mini').innerHTML = html;
+}
+
+// =====================================================
+// UNITS GRID
+// =====================================================
+function renderUnitsGrid() {
+  const container = document.getElementById('units-grid');
+  let html = '';
+  let lastPart = 0;
+
+  CURRICULUM.units.forEach(unit => {
+    if (unit.part !== lastPart) {
+      html += `<div class="part-divider">
+        <span class="part-label">📖 الجزء ${unit.part === 1 ? 'الأول' : 'الثاني'}</span>
+        <div class="part-line"></div>
+      </div>`;
+      lastPart = unit.part;
+    }
+
+    const totalFreq = unit.lessons.reduce((s, l) => s + l.examFrequency, 0);
+
+    html += `
+      <div class="unit-card" id="unit-${unit.id}">
+        <div class="unit-header" style="background:linear-gradient(135deg,${unit.color}18,${unit.color}06);border-bottom:1px solid ${unit.color}22">
+          <div class="unit-icon">${unit.icon}</div>
+          <div class="unit-title-wrap">
+            <div class="unit-title" style="color:${unit.color}">${unit.title}</div>
+            <div class="unit-subtitle">${unit.lessons.length} دروس · ${totalFreq} سؤال امتحاني</div>
+          </div>
+        </div>
+        <div class="unit-lessons-list">`;
+
+    unit.lessons.forEach(lesson => {
+      html += `
+          <div class="unit-lesson-row" onclick="showPage('lesson', {lessonId:'${lesson.id}'})">
+            <div class="lesson-link-title">${lesson.title}</div>
+            <div class="lesson-meta">
+              ${flames(lesson.heatScore)}
+              <span class="lesson-freq">${lesson.examFrequency}×</span>
+            </div>
+          </div>`;
+    });
+
+    html += `</div></div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+// =====================================================
+// LESSON DETAIL
+// =====================================================
+function renderLesson({ lessonId }) {
+  const info = getLesson(lessonId);
+  if (!info) return;
+  const { lesson, unit } = info;
+  const totalExam = lesson.examTypes.mcq + lesson.examTypes.essay + lesson.examTypes.calculation;
+  const maxExam = Math.max(lesson.examTypes.mcq, lesson.examTypes.essay, lesson.examTypes.calculation);
+
+  // Recent years bar
+  const allYears = Array.from({ length: 2025 - 2015 + 1 }, (_, i) => 2015 + i);
+  const yearsHtml = allYears.map(y => {
+    const appeared = lesson.lastYears?.includes(y);
+    return `
+      <div class="year-col">
+        <div class="year-bar" style="height:${appeared ? '36px' : '8px'};background:${appeared ? unit.color : 'rgba(255,255,255,0.05)'}"></div>
+        <div class="year-label">${y.toString().slice(2)}</div>
+      </div>`;
+  }).join('');
+
+  const topicsHtml = lesson.keyTopics.map(t => `
+    <li class="topic-item">
+      <div class="topic-bullet" style="background:${unit.color}"></div>
+      <span>${t}</span>
+    </li>`).join('');
+
+  const tipsHtml = lesson.teachingTips.map((t, i) => `
+    <div class="tip-item">
+      <span class="tip-num">${i + 1}</span>
+      <span>${t}</span>
+    </div>`).join('');
+
+  const mistakesHtml = lesson.commonMistakes.map(m => `
+    <div class="mistake-item">
+      <span style="color:var(--red);flex-shrink:0">⚠</span>
+      <span>${m}</span>
+    </div>`).join('');
+
+  document.getElementById('lesson-content').innerHTML = `
+    <!-- HEADER -->
+    <div class="lesson-detail-header">
+      <div>
+        <div class="lesson-breadcrumb">
+          <span onclick="showPage('units')" style="cursor:pointer;color:var(--accent)">الوحدات</span>
+          › ${unit.icon} ${unit.title} › ${lesson.title}
+        </div>
+        <div class="lesson-title-main" style="color:${unit.color}">${lesson.title}</div>
+        <div class="lesson-tags" style="margin-top:10px">
+          <span class="tag tag-pages">📄 صفحات ${lesson.pages}</span>
+          <span class="tag tag-hours">⏱ ${lesson.teachHours} حصص</span>
+          <span class="tag tag-type">📝 ${typeLabel(lesson.type)}</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px">
+        <div class="lesson-stat-mini">
+          <div class="lesson-stat-num" style="color:${unit.color}">${lesson.examFrequency}</div>
+          <div class="lesson-stat-lbl">سؤال امتحاني<br>1997–2025</div>
+        </div>
+        <div class="lesson-stat-mini">
+          <div class="lesson-stat-num" style="color:var(--gold)">${flames(lesson.heatScore)}</div>
+          <div class="lesson-stat-lbl">درجة الأهمية</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APPEARANCE YEARS -->
+    <div class="card" style="margin-bottom:16px">
+      <div class="detail-section-title">📅 ظهور الدرس في الامتحانات (2015–2025)</div>
+      <div class="years-chart">${yearsHtml}</div>
+    </div>
+
+    <!-- MAIN GRID -->
+    <div class="detail-grid">
+      <!-- KEY TOPICS -->
+      <div class="card">
+        <div class="detail-section-title">📌 المفاهيم الأساسية للدرس</div>
+        <ul class="topic-list">${topicsHtml}</ul>
+      </div>
+
+      <!-- EXAM TYPES -->
+      <div class="card">
+        <div class="detail-section-title">📊 توزيع أنواع الأسئلة الامتحانية</div>
+        <div style="margin-bottom:16px">
+          <div class="exam-type-row">
+            <div class="exam-type-label">اختيار من متعدد</div>
+            <div class="exam-type-bar-wrap">
+              <div class="exam-type-bar" style="width:${(lesson.examTypes.mcq/totalExam*100)}%;background:#3b82f6"></div>
+            </div>
+            <div class="exam-type-count">${lesson.examTypes.mcq} سؤال</div>
+          </div>
+          <div class="exam-type-row">
+            <div class="exam-type-label">مقالي / تفسير</div>
+            <div class="exam-type-bar-wrap">
+              <div class="exam-type-bar" style="width:${(lesson.examTypes.essay/totalExam*100)}%;background:var(--purple)"></div>
+            </div>
+            <div class="exam-type-count">${lesson.examTypes.essay} سؤال</div>
+          </div>
+          <div class="exam-type-row">
+            <div class="exam-type-label">حسابي</div>
+            <div class="exam-type-bar-wrap">
+              <div class="exam-type-bar" style="width:${(lesson.examTypes.calculation/totalExam*100)}%;background:var(--green)"></div>
+            </div>
+            <div class="exam-type-count">${lesson.examTypes.calculation} سؤال</div>
+          </div>
+        </div>
+        <div style="font-size:0.72rem;color:var(--text3);margin-top:8px">
+          إجمالي الأسئلة المحللة: ${totalExam} سؤال من امتحانات 1997–2025
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-grid">
+      <!-- TEACHING TIPS -->
+      <div class="card">
+        <div class="detail-section-title">💡 كيف تشرح هذا الدرس؟</div>
+        ${tipsHtml}
+      </div>
+
+      <!-- COMMON MISTAKES -->
+      <div class="card">
+        <div class="detail-section-title">⚠️ أكثر أخطاء الطلاب شيوعاً</div>
+        ${mistakesHtml}
+      </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <div style="display:flex;justify-content:space-between;margin-top:16px">
+      <button class="btn btn-outline" onclick="showPage('units')">← العودة للوحدات</button>
+      <button class="btn btn-primary" onclick="showPage('plan')">عرض في خطة التدريس ←</button>
+    </div>
+  `;
+}
+
+// =====================================================
+// TEACHING PLAN
+// =====================================================
+function renderPlan() {
+  const container = document.getElementById('plan-grid');
+  document.getElementById('current-week-display').textContent = currentWeek;
+  let html = '';
+
+  TEACHING_PLAN.forEach(week => {
+    const isCurrent = week.week === currentWeek;
+    const isPast = week.week < currentWeek;
+
+    let sessionsHtml = '';
+    week.sessions.forEach(session => {
+      const isDone = completedSessions.has(session.session);
+      const info = getLesson(session.lessonId);
+      const color = info?.unit.color || '#666';
+      const bg = isDone ? 'rgba(255,255,255,0.04)' : `${color}18`;
+      const borderColor = isCurrent && !isDone ? color : 'rgba(255,255,255,0.06)';
+
+      sessionsHtml += `
+        <div class="session-cell ${isDone ? 'session-done' : ''}"
+             style="background:${bg};border-color:${borderColor};color:${isDone ? 'var(--text3)' : 'var(--text)'}"
+             onclick="toggleSession(${session.session})"
+             title="${session.lessonTitle}">
+          <div class="session-unit" style="color:${isDone ? 'var(--text3)' : color}">${info?.unit.icon || ''} ${info?.unit.title || ''}</div>
+          <div class="session-lesson">${session.lessonTitle}</div>
+          <div class="session-focus">${isDone ? '✅ منتهية' : session.focus}</div>
+        </div>`;
+    });
+
+    // Pad if less than 3 sessions
+    while (week.sessions.length < 3) {
+      sessionsHtml += `<div class="session-cell" style="background:rgba(255,255,255,0.02);border-color:rgba(255,255,255,0.04);color:var(--text3)">
+        <div style="font-size:0.72rem;color:var(--text3);text-align:center;margin-top:8px">—</div>
+      </div>`;
+      week.sessions.push({});
+    }
+
+    const weekStyle = isCurrent ? 'background:rgba(56,189,248,0.06);border-radius:10px;padding:8px;margin:-4px;' : '';
+
+    html += `
+      <div class="week-row" style="${weekStyle}">
+        <div class="week-label" style="${isCurrent ? 'background:var(--accent2);color:#fff;' : isPast ? 'opacity:0.5' : ''}">
+          ${isCurrent ? '▶ ' : ''}أسبوع ${week.week}
+        </div>
+        <div class="week-sessions">${sessionsHtml}</div>
+      </div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+function toggleSession(num) {
+  if (completedSessions.has(num)) {
+    completedSessions.delete(num);
+  } else {
+    completedSessions.add(num);
+  }
+  localStorage.setItem('completedSessions', JSON.stringify([...completedSessions]));
+
+  // Auto-advance week
+  const weekSessions = [1, 2, 3].map(i => (currentWeek - 1) * 3 + i);
+  if (weekSessions.every(s => completedSessions.has(s)) && currentWeek < 16) {
+    currentWeek++;
+    localStorage.setItem('currentWeek', currentWeek);
+  }
+
+  renderPlan();
+}
+
+// =====================================================
+// PREDICTIONS FULL
+// =====================================================
+function renderPredictionsFull() {
+  const all = getAllLessons();
+  // Sort by heatScore desc
+  const sorted = [...all].sort((a, b) => b.lesson.heatScore - a.lesson.heatScore);
+
+  let html = `
+    <div class="card" style="margin-bottom:20px;background:rgba(245,158,11,0.06);border-color:rgba(245,158,11,0.2)">
+      <div style="font-size:0.82rem;color:var(--text2);line-height:1.7">
+        🎯 <strong style="color:var(--gold)">كيف تم التوقع؟</strong> — تم تحليل ${EXAM_STATS.totalExamsAnalyzed} امتحاناً (${EXAM_STATS.yearsRange}).
+        الدروس المتوقعة هي: (أ) الأعلى تكراراً تاريخياً، (ب) التي لم تأتِ منذ 2-3 سنوات، (ج) المستجدات في المنهاج.
+        هذه التوقعات تعكس الأنماط لا تضمن النتائج.
+      </div>
+    </div>`;
+
+  EXAM_STATS.predictions2026.forEach((p, i) => {
+    const info = getLesson(p.lessonId);
+    if (!info) return;
+    const { lesson, unit } = info;
+    const isVeryHigh = p.confidence.includes('جداً');
+
+    html += `
+      <div class="card" style="margin-bottom:12px;border-color:${isVeryHigh ? 'rgba(245,158,11,0.3)' : 'var(--border)'}">
+        <div style="display:flex;align-items:flex-start;gap:16px">
+          <div style="font-size:2rem;font-weight:900;color:${isVeryHigh ? 'var(--gold)' : 'var(--text3)'};min-width:40px">
+            ${i + 1}
+          </div>
+          <div style="flex:1">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap">
+              <span style="font-size:1rem;font-weight:700;color:${unit.color}">${unit.icon} ${lesson.title}</span>
+              <span class="pred-badge ${isVeryHigh ? 'pred-very-high' : 'pred-high'}">${p.confidence}</span>
+              ${flames(lesson.heatScore)}
+            </div>
+            <div style="font-size:0.78rem;color:var(--text3);margin-bottom:10px">
+              📋 الوحدة: ${unit.title} | 📄 صفحات ${lesson.pages} | 🔢 ${lesson.examFrequency} سؤال تاريخياً
+            </div>
+            <div style="font-size:0.8rem;color:var(--text2);background:rgba(0,0,0,0.2);padding:10px 14px;border-radius:8px;border-right:3px solid ${unit.color}">
+              💬 ${p.reason}
+            </div>
+          </div>
+          <button class="btn btn-outline" style="flex-shrink:0" onclick="showPage('lesson',{lessonId:'${p.lessonId}'})">
+            عرض الدرس
+          </button>
+        </div>
+      </div>`;
+  });
+
+  // Table of all lessons by heat
+  html += `
+    <div style="margin-top:28px;margin-bottom:12px">
+      <div class="section-title" style="font-size:0.95rem">📋 ترتيب جميع الدروس حسب الأهمية الامتحانية</div>
+    </div>
+    <div class="card">
+      <table style="width:100%;border-collapse:collapse;font-size:0.8rem">
+        <thead>
+          <tr style="border-bottom:1px solid var(--border)">
+            <th style="padding:10px;text-align:right;color:var(--text3);font-weight:600">#</th>
+            <th style="padding:10px;text-align:right;color:var(--text3);font-weight:600">الدرس</th>
+            <th style="padding:10px;text-align:right;color:var(--text3);font-weight:600">الوحدة</th>
+            <th style="padding:10px;text-align:center;color:var(--text3);font-weight:600">التكرار</th>
+            <th style="padding:10px;text-align:center;color:var(--text3);font-weight:600">الأهمية</th>
+          </tr>
+        </thead>
+        <tbody>`;
+
+  sorted.forEach(({ lesson, unit }, i) => {
+    html += `
+          <tr style="border-bottom:1px solid var(--border);cursor:pointer" onclick="showPage('lesson',{lessonId:'${lesson.id}'})">
+            <td style="padding:10px;color:var(--text3)">${i + 1}</td>
+            <td style="padding:10px;font-weight:600;color:${unit.color}">${lesson.title}</td>
+            <td style="padding:10px;color:var(--text2)">${unit.icon} ${unit.title}</td>
+            <td style="padding:10px;text-align:center;font-weight:700">${lesson.examFrequency}×</td>
+            <td style="padding:10px;text-align:center">${flames(lesson.heatScore)}</td>
+          </tr>`;
+  });
+
+  html += `</tbody></table></div>`;
+
+  document.getElementById('predictions-full').innerHTML = html;
+}
+
+// =====================================================
+// SEARCH
+// =====================================================
+function handleSearch(query) {
+  if (!query.trim()) return;
+  const lower = query.toLowerCase();
+  const all = getAllLessons();
+  const match = all.find(({ lesson }) =>
+    lesson.title.includes(query) ||
+    lesson.keyTopics.some(t => t.includes(query))
+  );
+  if (match) {
+    showPage('lesson', { lessonId: match.lesson.id });
+  }
+}
+
+// =====================================================
+// INIT
+// =====================================================
+function init() {
+  renderSidebarNav();
+  renderHeatMap();
+  renderPredictionsMini();
+  renderUnitsGrid();
+  renderPlan();
+}
+
+init();
+</script>
+</body>
+</html>
